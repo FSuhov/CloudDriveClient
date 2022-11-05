@@ -1,0 +1,37 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">File name</th>
+        <th scope="col">Size</th>
+        <th scope="col">Type</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let file of files">
+            <td>{{file.name}}</td>
+            <td>{{file.size}}</td>
+            <td>{{file.type}}</td>
+            <td>
+                <button
+                class="btn btn-primary"
+                (click)="download(file.name)">Download</button>              
+            </td>
+            <td>
+                <button
+                class="btn btn-secondary"
+                (click)="onClipboardCopy(file.name)">Share</button>              
+            </td>
+            <td>
+                <button
+                class="btn btn-danger"
+                (click)="deleteFile(file.name)">Delete
+                </button>              
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
