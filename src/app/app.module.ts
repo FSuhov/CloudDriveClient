@@ -44,7 +44,7 @@ import { WindowRef } from './_services/WindowRef';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    WindowRef
+    { provide: WindowRef, useClass: WindowRef, multi: true }
   ],
   bootstrap: [AppComponent]
 })
