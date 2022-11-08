@@ -16,7 +16,7 @@ import { RegisterComponent } from './register/register.component';
 import { FileUploaderComponent } from './files/file-uploader/file-uploader.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
-import { WindowRef } from './_services/WindowRef';
+//import { WindowRef } from './_services/WindowRef';
 
 
 @NgModule({
@@ -43,8 +43,8 @@ import { WindowRef } from './_services/WindowRef';
     })
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: WindowRef, useClass: WindowRef, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    //{ provide: WindowRef, useClass: WindowRef, multi: true }
   ],
   bootstrap: [AppComponent]
 })

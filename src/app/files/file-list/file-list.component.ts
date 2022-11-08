@@ -9,7 +9,7 @@ import { FileService } from 'src/app/_services/file.service';
 import { environment } from 'src/environments/environment';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Observable } from 'rxjs';
-import { WindowRef } from 'src/app/_services/WindowRef';
+//import { WindowRef } from 'src/app/_services/WindowRef';
 
 @Component({
   selector: 'app-file-list',
@@ -27,8 +27,7 @@ export class FileListComponent implements OnInit {
 
   constructor(private fileService: FileService, private accountService: AccountService, 
     private router: Router, private toastr: ToastrService,
-    private clipboard: Clipboard, private http: HttpClient,
-    private windowRef: WindowRef) { 
+    private clipboard: Clipboard, private http: HttpClient) { 
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
@@ -91,7 +90,7 @@ export class FileListComponent implements OnInit {
     this.presignedUrl = presignedUrl;
     console.log(this.presignedUrl);
 
-    this.windowRef.nativeWindow.navigator.clipboard.writeText(this.presignedUrl);
+    //this.windowRef.nativeWindow.navigator.clipboard.writeText(this.presignedUrl);
 
     //navigator.clipboard.writeText(this.presignedUrl);
 
