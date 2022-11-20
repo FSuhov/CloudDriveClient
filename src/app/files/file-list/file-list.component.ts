@@ -9,7 +9,7 @@ import { FileService } from 'src/app/_services/file.service';
 import { environment } from 'src/environments/environment';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Observable } from 'rxjs';
-import { WindowRef } from 'src/app/_services/WindowRef';
+import { WindowService } from 'src/app/_services/window.service';
 
 @Component({
   selector: 'app-file-list',
@@ -28,7 +28,7 @@ export class FileListComponent implements OnInit {
   constructor(private fileService: FileService, private accountService: AccountService, 
     private router: Router, private toastr: ToastrService,
     private clipboard: Clipboard, private http: HttpClient,
-    private windowRef: WindowRef) { 
+    private windowRef: WindowService) { 
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
