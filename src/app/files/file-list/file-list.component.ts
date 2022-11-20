@@ -9,7 +9,7 @@ import { FileService } from 'src/app/_services/file.service';
 import { environment } from 'src/environments/environment';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Observable } from 'rxjs';
-//import { WindowRef } from 'src/app/_services/WindowRef';
+import { WindowRef } from 'src/app/_services/WindowRef';
 
 @Component({
   selector: 'app-file-list',
@@ -27,7 +27,8 @@ export class FileListComponent implements OnInit {
 
   constructor(private fileService: FileService, private accountService: AccountService, 
     private router: Router, private toastr: ToastrService,
-    private clipboard: Clipboard, private http: HttpClient) { 
+    private clipboard: Clipboard, private http: HttpClient,
+    private windowRef: WindowRef) { 
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
@@ -81,25 +82,17 @@ export class FileListComponent implements OnInit {
     
   }
 
-  async setPresignedUrl(fileName: string) {
+  setPresignedUrl(fileName: string) {
     const url = this.baseUrl+'share?userName=' 
     + this.user.userName + '&fileName=' + fileName;
 
-    const presignedUrl = await this.getSharedLink(url);  
-    
-    this.presignedUrl = presignedUrl;
-    console.log(this.presignedUrl);
+    this.getSharedLink(url).subscribe( response => {
+      this.presignedUrl = response;
+      
+      console.log(this.presignedUrl);
 
-    //this.windowRef.nativeWindow.navigator.clipboard.writeText(this.presignedUrl);
-
-    //navigator.clipboard.writeText(this.presignedUrl);
-
-    // const success = this.clipboard.copy(this.presignedUrl);
-    // if(success){
-    //   this.toastr.success("Data copied to clipboard");
-    // } else {
-    //   this.toastr.error("Data not copied");
-    // }
+      this.windowRef.nativeWindow.navigator.clipboard.writeText(this.presignedUrl);
+    });     
   }
 
   getSharedLink(url: string) {
@@ -108,7 +101,7 @@ export class FileListComponent implements OnInit {
         Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user')).token
       }),
       responseType: 'text'
-    }).toPromise();
+    });
   }
 
   private downloadFile = (data: HttpResponse<Blob>) => {

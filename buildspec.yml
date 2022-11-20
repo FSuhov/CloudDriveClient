@@ -15,7 +15,7 @@ phases:
       - ng build --configuration=development
   post_build:
     commands:
-      - echo build process finished, we should uplload to S3 now
+      - echo build process finished, we should upload to S3 now
       - cd dist/$APP_NAME
       - ls -la
-      - aws s3 sync . s3://coudbuild-us-east-1-client-output --delete
+      - aws s3 sync . s3://cloud-drive.gladiatrix.net --delete
